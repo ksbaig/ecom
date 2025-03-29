@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Beauty Store</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Luxury Beauty Store</h1>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="showHome()">Home</a></li>
+                <li><a href="#" onclick="showImages('perfumes')">Perfumes</a></li>
+                <li><a href="#" onclick="showImages('bags')">Ladies Shoulder Bags</a></li>
+                <li><a href="#" onclick="showImages('cosmetics')">Cosmetics</a></li>
+                <li><a href="#" onclick="showCart()">Cart</a></li>
+                <li><a href="#" onclick="showContact()">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section id="image-gallery">
+            <h2>Welcome to Luxury Beauty Store</h2>
+        </section>
+        
+        <section id="cart" style="display: none;">
+            <h2>Your Cart</h2>
+            <div id="cart-items"></div>
+            <p id="total-price">Total: $0 USD</p>
+            <button onclick="showPaymentOptions()">Go to Payment</button>
+            
+            <div id="payment-options" style="display: none;">
+                <h3>Select Payment Method</h3>
+                <button onclick="payByCash()">Cash on Delivery</button>
+                <button onclick="payByCard()">Credit/Debit Card</button>
+            </div>
+            
+            <div id="card-payment-form" style="display: none;">
+                <h3>Enter Card Details</h3>
+                <form>
+                    <label for="first-name">First Name:</label>
+                    <input type="text" id="first-name" required><br>
+                    
+                    <label for="last-name">Last Name:</label>
+                    <input type="text" id="last-name" required><br>
+                    
+                    <label for="card-number">Card Number:</label>
+                    <input type="text" id="card-number" required><br>
+                    
+                    <label for="cvv">CVV:</label>
+                    <input type="text" id="cvv" required><br>
+                    
+                    <button type="submit">Submit Payment</button>
+                </form>
+            </div>
+
+            <div id="cash-payment-form" style="display: none;">
+                <h3>Enter Contact Details</h3>
+                <form>
+                    <label for="contact-name">Contact Person Name:</label>
+                    <input type="text" id="contact-name" required><br>
+                    
+                    <label for="mobile">Mobile Number:</label>
+                    <input type="text" id="mobile" required><br>
+                    
+                    <label for="whatsapp">WhatsApp:</label>
+                    <input type="text" id="whatsapp" required><br>
+                    
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" required><br>
+                    
+                    <p id="order-total">Total: $0 USD</p>
+                    <p id="order-number">Order Number: #</p>
+                    
+                    <button type="submit">Confirm Order</button>
+                </form>
+            </div>
+        </section>
+        
+        <section id="contact" style="display: none;">
+            <h2>Contact Us</h2>
+            <p>Mobile: +123456789</p>
+            <p>Email: info@luxurybeautystore.com</p>
+            <p>Address: 123 Fashion St, NY, USA</p>
+            <p>Follow us on:</p>
+            <a href="#"><img src="images/facebook.png" alt="Facebook"></a>
+            <a href="#"><img src="images/instagram.png" alt="Instagram"></a>
+            <a href="#"><img src="images/tiktok.png" alt="TikTok"></a>
+            <a href="#"><img src="images/youtube.png" alt="YouTube"></a>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2025 Luxury Beauty Store. All Rights Reserved.</p>
+    </footer>
+    
+    <script>
+        let cart = [];
+        let prices = {
+            perfumes: [15, 20, 18, 19, 20, 18],
+            bags: [15, 20, 18, 19, 20, 18],
+            cosmetics: [15, 20, 18, 19, 20, 18]
+        };
+
+        function showImages(category) {
+            document.getElementById("image-gallery").style.display = "block";
+            document.getElementById("cart").style.display = "none";
+            document.getElementById("contact").style.display = "none";
+            
+            const imageGallery = document.getElementById("image-gallery");
+            imageGallery.innerHTML = `<h2>${category.charAt(0).toUpperCase() + category.slice(1)}</h2>`;
+            for (let i = 1; i <= 6; i++) {
+                imageGallery.innerHTML += `
+                    <div>
+                        <img src='images/${category}/${i}.jpg' alt='${category} ${i}' width='150'>
+                        <p>Price: $${prices[category][i - 1]}</p>
+                        <button onclick="addToCart('${category}', ${i - 1})">Add to Cart</button>
+                    </div>`;
+            }
+        }
+
+        function showHome() {
+            document.getElementById("image-gallery").style.display = "block";
+            document.getElementById("cart").style.display = "none";
+            document.getElementById("contact").style.display = "none";
+            document.getElementById("image-gallery").innerHTML = "<h2>Welcome to Luxury Beauty Store</h2>";
+        }
+
+        function showCart() {
+            document.getElementById("image-gallery").style.display = "none";
+            document.getElementById("contact").style.display = "none";
+            document.getElementById("cart").style.display = "block";
+        }
+
+        function showContact() {
+            document.getElementById("image-gallery").style.display = "none";
+            document.getElementById("cart").style.display = "none";
+            document.getElementById("contact").style.display = "block";
+        }
+
+        window.showHome = showHome;
+        window.showCart = showCart;
+        window.showContact = showContact;
+    </script>
+</body>
+</html>
